@@ -15,6 +15,6 @@ It is structured in the following way:
 6. Model
 7. Recommender
 
-# The recommender 🥁
+# The Recommender 🥁
 The final recommender is also pushed to Heroku and available for everyone to try. Please follow this link to get there: [http://artist-recommender.herokuapp.com/](http://artist-recommender.herokuapp.com/)
 
