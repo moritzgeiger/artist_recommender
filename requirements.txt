@@ -11,8 +11,6 @@ scikit-learn
 seaborn
 matplotlib
 unicodedata2
-webbrowser
-urllib
 
 # utilities
 six>=1.14
