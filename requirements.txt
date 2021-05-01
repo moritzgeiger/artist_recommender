@@ -10,7 +10,7 @@ pandas
 scikit-learn
 seaborn
 matplotlib
-unicodedata
+unicodedata2
 webbrowser
 urllib
 
