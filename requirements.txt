@@ -10,7 +10,6 @@ pandas
 scikit-learn
 seaborn
 matplotlib
-regex
 unicodedata
 webbrowser
 urllib

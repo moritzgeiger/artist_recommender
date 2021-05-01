@@ -55,9 +55,8 @@ def show_results(lst_rec):
 
 def result_handler(outpt):
     if 'success' in outpt:
-        st.write(
-            'I recommend you to check out the following three artists on Spotify:'
-        )
+        st.write(f'I recommend you to check out the following three artists similar to _{artist}_ on Spotify:'
+                )
         lst_rec = outpt['success']
         show_results(lst_rec)
         st.write('Click on one of the buttons to be redirected to Spotify.')
@@ -69,6 +68,9 @@ def result_handler(outpt):
             with st.beta_expander(alt):
                 outpt_new = recommender(alt)
                 lst_rec = outpt_new['success']
+                st.write(
+                    f'I recommend you to check out the following three artists similar to _{alt}_ on Spotify:'
+                )
                 show_results(lst_rec)
                 st.write(
                     'Click on one of the buttons to be redirected to Spotify.')
