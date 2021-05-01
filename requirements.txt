@@ -11,6 +11,7 @@ scikit-learn
 seaborn
 matplotlib
 unicodedata2
+regex
 
 # utilities
 six>=1.14
