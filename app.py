@@ -53,7 +53,7 @@ def show_results(lst_rec):
 
 def result_handler(outpt):
     if 'success' in outpt:
-        st.write(f'I recommend you to check out the following three artists similar to _{artist}_ on Spotify:'
+        st.write(f'I recommend you to check out the following three artists similar to **_{artist}_** on Spotify:'
                 )
         lst_rec = outpt['success']
         show_results(lst_rec)
@@ -85,3 +85,6 @@ except:
 st.sidebar.title("Credits")
 st.sidebar.write("App made by Moritz Geiger. Visit my GitHub <a href='https://github.com/moritzgeiger/' target='blank'>here</a>.",
         unsafe_allow_html=True)
+st.sidebar.write(
+    "Source code and notebook for this app can be found <a href='https://github.com/moritzgeiger/artist_recommender' target='blank'>here</a>.",
+    unsafe_allow_html=True)
