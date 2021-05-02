@@ -1,6 +1,7 @@
 # ML
 from sklearn.neighbors import KNeighborsRegressor
 from joblib import dump, load
+import numpy as np
 
 #TABLES
 import pandas as pd
@@ -74,9 +75,19 @@ class Predictor:
             print('got a valid dataframe')
             pred = inpt.drop(columns=['artists', 'genres', 'target'])
             print(f'df shape: {pred.shape}')
-            nearest = self.model.kneighbors(pred, n_neighbors=neighbors+1) # Return the distances and index of the 2 closest points
-            indexes = list(nearest[1][0])
-            return {'success':list(self.df_enc.artists[indexes[1:]])}
+            dist, nearest = self.model.kneighbors(
+                pred, n_neighbors=neighbors +
+                1)  # Return the distances and index of the 2 closest points
+            indexes = list(nearest[0])
+            dist_new = dist[0][1:]  # the nearest is always the artist itself
+            dist_fin = 1 - dist_new / (
+                dist_new.max() + dist_new.max() / .2
+            )  # the highest distance in the set => beautifying the range
+            dist_fin = dist_fin.tolist() # streamlit doesnt seem to like same variable instanciations..
+            print(f'distances: {dist_fin}')
+            return {"success": self.df_enc.artists[indexes[1:]].tolist(),
+                    "probas": dist_fin
+                    }
         elif isinstance(inpt, list):
             print(inpt)
             return {'refine_search':inpt}

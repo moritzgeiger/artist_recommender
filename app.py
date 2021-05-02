@@ -39,24 +39,30 @@ artist = st.text_input('Type in your favorite artist:')
 
 
 #### FUNCTIONS #############
-@st.cache(allow_output_mutation=True)
+# @st.cache(allow_output_mutation=True)
 def recommender(artist):
     recommender = Predictor(artist)
     outpt = recommender.recommend_artist()
     return outpt
 
-def show_results(lst_rec):
-    for name in lst_rec:
+
+def show_results(lst_rec, lst_proba):
+    # st.write(lst_rec, lst_proba)
+    for c, name in enumerate(lst_rec):
+        proba = round(lst_proba[c]*100, 2)
         st.write(
-            f'<a href="{quote(urljoin(spotify_const, name), safe=(":/?"))}" target="blank">{name}</a>',
+            f'<a href="{quote(urljoin(spotify_const, name), safe=(":/?"))}" target="blank">{name}</a> (Your match {proba} %)',
             unsafe_allow_html=True)
 
-def result_handler(outpt):
-    if 'success' in outpt:
-        st.write(f'I recommend you to check out the following three artists similar to **_{artist}_** on Spotify:'
-                )
+def result_handler(outpt, artist):
+    if 'success' in outpt.keys():
+        st.write(
+            f'I recommend you to check out the following three artists similar to **_{artist}_** on Spotify:'
+        )
         lst_rec = outpt['success']
-        show_results(lst_rec)
+        lst_proba = outpt['probas']
+        # st.write(outpt)
+        show_results(lst_rec, lst_proba)
         st.write('Click on one of the buttons to be redirected to Spotify.')
 
     elif 'refine_search' in outpt:
@@ -65,7 +71,7 @@ def result_handler(outpt):
         for alt in lst:
             if st.button(alt):
                 # restart the result handler with different input
-                result_handler(recommender(alt))
+                result_handler(outpt=recommender(alt), artist=alt)
 
     elif 'not_found' in outpt:
         st.write('Couldn\'t find your artist')
@@ -76,7 +82,7 @@ if artist:
     outpt = recommender(artist.strip())
 
 try:
-    result_handler(outpt)
+    result_handler(outpt, artist)
 except:
     pass
 
