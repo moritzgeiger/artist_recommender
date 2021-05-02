@@ -94,3 +94,4 @@ st.sidebar.write("App made by Moritz Geiger. Visit my GitHub <a href='https://gi
 st.sidebar.write(
     "Source code and notebook for this app can be found <a href='https://github.com/moritzgeiger/artist_recommender' target='blank'>here</a>.",
     unsafe_allow_html=True)
+st.sidebar.markdown('**Note**\n\nComputation times can be slow due to reduced performance by Heroku.')
