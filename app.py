@@ -22,7 +22,7 @@ from urllib.parse import urljoin, quote
 ## PACKAGE CLASSES
 from artist_recommender.predictor import Predictor
 
-# for later redirection
+# for later redirection spotify contructor
 spotify_const = 'https://open.spotify.com/search/'
 
 
@@ -47,11 +47,9 @@ def recommender(artist):
 
 def show_results(lst_rec):
     for name in lst_rec:
-        if st.button(name):
-            name = quote(name)
-            webbrowser.open_new_tab(urljoin(spotify_const, name))
-        else:
-            st.write('')
+        st.write(
+            f'<a href="{quote(urljoin(spotify_const, name), safe=(":/?"))}" target="blank">{name}</a>',
+            unsafe_allow_html=True)
 
 def result_handler(outpt):
     if 'success' in outpt:
@@ -65,15 +63,9 @@ def result_handler(outpt):
         st.write('Did you mean one of the following artists?')
         lst = outpt['refine_search']
         for alt in lst:
-            with st.beta_expander(alt):
-                outpt_new = recommender(alt)
-                lst_rec = outpt_new['success']
-                st.write(
-                    f'I recommend you to check out the following three artists similar to _{alt}_ on Spotify:'
-                )
-                show_results(lst_rec)
-                st.write(
-                    'Click on one of the buttons to be redirected to Spotify.')
+            if st.button(alt):
+                # restart the result handler with different input
+                result_handler(recommender(alt))
 
     elif 'not_found' in outpt:
         st.write('Couldn\'t find your artist')

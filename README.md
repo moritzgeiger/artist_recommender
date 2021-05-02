@@ -17,7 +17,7 @@ It is structured in the following way:
 
 # The Recommender 🥁
 The final recommender is also pushed to Heroku and available for everyone to try. Please follow this link to get there: [http://artist-recommender.herokuapp.com/](http://artist-recommender.herokuapp.com/).
-The recommender is case, special-char and interpunction insensitive and therefore quite stable for a small project like this. Although it will only recognize fully written words and not auto-fill them (like 'Emine' or 'beatle'). Try it out yourself and have fun! 🥁
+The recommender is case, special-char and interpunction insensitive and therefore quite stable for a small project like this. Although, it will only recognize fully written words and not auto-fill them (like 'Emine' or 'beatle'). Try it out yourself and have fun! 🥁
 
 The app is run on a Streamlit Framework and hosted by heroku. Longer loading times might occur.
 
